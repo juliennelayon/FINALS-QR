@@ -1,0 +1,64 @@
+{
+  "expo": {
+    "name": "ScanIn",
+    "slug": "scanin",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/scanin-launcher.png",
+    "scheme": "qr-attendance",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/scanin-adaptive.png",
+        "backgroundColor": "#ECFDF5"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.midnightsky.ScanIn"
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/scanin-launcher.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/qr-logo.png",
+          "imageWidth": 220,
+          "resizeMode": "contain",
+          "backgroundColor": "#ECFDF5"
+        }
+      ],
+      "expo-sqlite",
+      "@react-native-community/datetimepicker",
+      "expo-build-properties",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Choose your ScanIn profile picture or request attachment."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#047857"
+        }
+      ],
+      "expo-asset"
+    ],
+    "experiments": {
+      "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c8fa8f12-222e-47c6-af0b-f4ca91e23b62"
+      }
+    },
+    "owner": "midnightsky"
+  }
+}
