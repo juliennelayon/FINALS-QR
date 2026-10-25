@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  ActivityIndicator,
   Image,
   KeyboardAvoidingView,
   Modal,
@@ -17,10 +16,15 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
+
 import BackButton from "./BackButton";
 import { COLORS as C } from "@/constants/colors";
+
 export const s = StyleSheet.create({
-  page: { flex: 1, backgroundColor: C.background },
+  page: {
+    flex: 1,
+    backgroundColor: C.background,
+  },
   wrap: {
     padding: 20,
     gap: 16,
@@ -36,10 +40,26 @@ export const s = StyleSheet.create({
     borderWidth: 1,
     borderColor: C.border,
   },
-  title: { fontSize: 27, fontWeight: "800", color: C.textPrimary },
-  h: { fontSize: 18, fontWeight: "700", color: C.textPrimary },
-  text: { fontSize: 15, lineHeight: 22, color: C.textPrimary },
-  muted: { fontSize: 13, lineHeight: 20, color: C.textSecondary },
+  title: {
+    fontSize: 27,
+    fontWeight: "800",
+    color: C.textPrimary,
+  },
+  h: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: C.textPrimary,
+  },
+  text: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: C.textPrimary,
+  },
+  muted: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: C.textSecondary,
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -63,7 +83,11 @@ export const s = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 4,
   },
-  label: { fontSize: 13, fontWeight: "700", color: C.textPrimary },
+  label: {
+    fontSize: 13,
+    fontWeight: "700",
+    color: C.textPrimary,
+  },
   btn: {
     backgroundColor: C.primary,
     borderRadius: 13,
@@ -75,8 +99,15 @@ export const s = StyleSheet.create({
     gap: 8,
     minHeight: 48,
   },
-  btnText: { fontSize: 14, fontWeight: "700", color: "#FFF" },
-  link: { color: C.primary, fontWeight: "700" },
+  btnText: {
+    fontSize: 14,
+    fontWeight: "700",
+    color: "#FFF",
+  },
+  link: {
+    color: C.primary,
+    fontWeight: "700",
+  },
   chip: {
     paddingHorizontal: 13,
     paddingVertical: 9,
@@ -85,7 +116,10 @@ export const s = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: C.card,
   },
-  chipOn: { backgroundColor: C.surface, borderColor: C.primary },
+  chipOn: {
+    backgroundColor: C.surface,
+    borderColor: C.primary,
+  },
   badge: {
     paddingHorizontal: 10,
     paddingVertical: 5,
@@ -99,10 +133,24 @@ export const s = StyleSheet.create({
     color: C.primary,
     textTransform: "capitalize",
   },
-  grid: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
-  stat: { flex: 1, minWidth: 130 },
-  error: { color: C.danger, fontSize: 14, lineHeight: 21 },
-  line: { height: 1, backgroundColor: C.border },
+  grid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 12,
+  },
+  stat: {
+    flex: 1,
+    minWidth: 130,
+  },
+  error: {
+    color: C.danger,
+    fontSize: 14,
+    lineHeight: 21,
+  },
+  line: {
+    height: 1,
+    backgroundColor: C.border,
+  },
   avatar: {
     width: 48,
     height: 48,
@@ -128,6 +176,7 @@ export const s = StyleSheet.create({
     gap: 14,
   },
 });
+
 export function Txt({
   children,
   muted = false,
@@ -135,8 +184,13 @@ export function Txt({
   children: React.ReactNode;
   muted?: boolean;
 }) {
-  return <Text style={muted ? s.muted : s.text}>{children}</Text>;
+  return (
+    <Text style={muted ? s.muted : s.text}>
+      {children}
+    </Text>
+  );
 }
+
 export function Button({
   title,
   onPress,
@@ -169,9 +223,16 @@ export function Button({
         <Ionicons
           name={icon}
           size={19}
-          color={danger ? C.danger : secondary ? C.primary : "#FFF"}
+          color={
+            danger
+              ? C.danger
+              : secondary
+                ? C.primary
+                : "#FFF"
+          }
         />
       )}
+
       <Text
         style={[
           s.btnText,
@@ -184,18 +245,30 @@ export function Button({
     </Pressable>
   );
 }
+
 export function Field({
   label,
   password = false,
   ...props
-}: TextInputProps & { label: string; password?: boolean }) {
-  const [show, setShow] = useState(false),
-    [focus, setFocus] = useState(false);
+}: TextInputProps & {
+  label: string;
+  password?: boolean;
+}) {
+  const [show, setShow] = useState(false);
+  const [focus, setFocus] = useState(false);
+
   return (
     <View style={{ gap: 6 }}>
       <Text style={s.label}>{label}</Text>
+
       <View
-        style={[s.field, focus && { borderColor: C.primary, borderWidth: 2 }]}
+        style={[
+          s.field,
+          focus && {
+            borderColor: C.primary,
+            borderWidth: 2,
+          },
+        ]}
       >
         {(password || /email|full name/i.test(label)) && (
           <Ionicons
@@ -211,6 +284,7 @@ export function Field({
             style={{ marginLeft: 10 }}
           />
         )}
+
         <TextInput
           {...props}
           accessibilityLabel={label}
@@ -221,19 +295,29 @@ export function Field({
           onBlur={() => setFocus(false)}
           style={[
             s.input,
-            props.multiline && { minHeight: 90, textAlignVertical: "top" },
+            props.multiline && {
+              minHeight: 90,
+              textAlignVertical: "top",
+            },
             props.style,
           ]}
         />
+
         {password && (
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel={show ? "Hide password" : "Show password"}
+            accessibilityLabel={
+              show ? "Hide password" : "Show password"
+            }
             onPress={() => setShow(!show)}
             style={{ padding: 12 }}
           >
             <Ionicons
-              name={show ? "eye-off-outline" : "eye-outline"}
+              name={
+                show
+                  ? "eye-off-outline"
+                  : "eye-outline"
+              }
               size={22}
               color={C.textSecondary}
             />
@@ -243,6 +327,7 @@ export function Field({
     </View>
   );
 }
+
 export function Chips({
   items,
   value,
@@ -258,16 +343,29 @@ export function Chips({
         <Pressable
           key={x}
           accessibilityRole="button"
-          accessibilityState={{ selected: value === x }}
+          accessibilityState={{
+            selected: value === x,
+          }}
           onPress={() => onChange(x)}
-          style={[s.chip, value === x && s.chipOn]}
+          style={[
+            s.chip,
+            value === x && s.chipOn,
+          ]}
         >
-          <Text style={[s.muted, value === x && s.link]}>{x}</Text>
+          <Text
+            style={[
+              s.muted,
+              value === x && s.link,
+            ]}
+          >
+            {x}
+          </Text>
         </Pressable>
       ))}
     </View>
   );
 }
+
 export function Badge({
   value,
   centered = false,
@@ -276,20 +374,30 @@ export function Badge({
   centered?: boolean;
 }) {
   const danger = [
-      "absent",
-      "cancelled",
-      "rejected",
-      "declined",
-      "suspended",
-    ].includes(value.toLowerCase()),
-    warn = ["late", "pending", "closed"].includes(value.toLowerCase());
+    "absent",
+    "cancelled",
+    "rejected",
+    "declined",
+    "suspended",
+  ].includes(value.toLowerCase());
+
+  const warn = [
+    "late",
+    "pending",
+    "closed",
+  ].includes(value.toLowerCase());
+
   return (
     <View
       style={[
         s.badge,
         centered && { alignSelf: "center" },
-        danger && { backgroundColor: "#FFE4E6" },
-        warn && { backgroundColor: "#FEF3C7" },
+        danger && {
+          backgroundColor: "#FFE4E6",
+        },
+        warn && {
+          backgroundColor: "#FEF3C7",
+        },
       ]}
     >
       <Text
@@ -304,6 +412,7 @@ export function Badge({
     </View>
   );
 }
+
 export function Avatar({
   url,
   name,
@@ -316,13 +425,29 @@ export function Avatar({
   return url ? (
     <Image
       source={{ uri: url }}
-      style={{ width: size, height: size, borderRadius: size / 2 }}
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size / 2,
+      }}
     />
   ) : (
     <View
-      style={[s.avatar, { width: size, height: size, borderRadius: size / 2 }]}
+      style={[
+        s.avatar,
+        {
+          width: size,
+          height: size,
+          borderRadius: size / 2,
+        },
+      ]}
     >
-      <Text style={[s.h, { fontSize: size * 0.32 }]}>
+      <Text
+        style={[
+          s.h,
+          { fontSize: size * 0.32 },
+        ]}
+      >
         {(name || "S")
           .split(" ")
           .slice(0, 2)
@@ -333,6 +458,7 @@ export function Avatar({
     </View>
   );
 }
+
 export function Empty({
   title,
   body = "Try another filter or check back later.",
@@ -341,13 +467,27 @@ export function Empty({
   body?: string;
 }) {
   return (
-    <View style={[s.card, { alignItems: "center", paddingVertical: 35 }]}>
-      <Ionicons name="file-tray-outline" size={38} color={C.primary} />
+    <View
+      style={[
+        s.card,
+        {
+          alignItems: "center",
+          paddingVertical: 35,
+        },
+      ]}
+    >
+      <Ionicons
+        name="file-tray-outline"
+        size={38}
+        color={C.primary}
+      />
+
       <Text style={s.h}>{title}</Text>
       <Txt muted>{body}</Txt>
     </View>
   );
 }
+
 export function Page({
   title,
   subtitle,
@@ -368,7 +508,10 @@ export function Page({
   onBack?: () => void;
 }) {
   return (
-    <SafeAreaView edges={["top", "left", "right"]} style={s.page}>
+    <SafeAreaView
+      edges={["top", "left", "right"]}
+      style={s.page}
+    >
       <ScrollView
         keyboardShouldPersistTaps="handled"
         refreshControl={
@@ -383,19 +526,28 @@ export function Page({
       >
         <View style={s.wrap}>
           {back && <BackButton onBack={onBack} />}
-          <View style={[s.row, { justifyContent: "space-between" }]}>
+
+          <View
+            style={[
+              s.row,
+              { justifyContent: "space-between" },
+            ]}
+          >
             <View style={{ flex: 1 }}>
               <Text style={s.title}>{title}</Text>
               {subtitle && <Txt muted>{subtitle}</Txt>}
             </View>
+
             {actions}
           </View>
+
           {children}
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
+
 export function Sheet({
   title,
   visible,
@@ -416,28 +568,49 @@ export function Sheet({
     >
       <KeyboardAvoidingView
         style={s.backdrop}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior={
+          Platform.OS === "ios" ? "padding" : undefined
+        }
       >
         <View style={s.modal}>
-          <View style={[s.row, { justifyContent: "space-between" }]}>
+          <View
+            style={[
+              s.row,
+              { justifyContent: "space-between" },
+            ]}
+          >
             <Text style={s.h}>{title}</Text>
+
             <Pressable
               onPress={onClose}
               accessibilityRole="button"
               accessibilityLabel="Close dialog"
               style={{ padding: 8 }}
             >
-              <Ionicons name="close" size={24} color={C.textPrimary} />
+              <Ionicons
+                name="close"
+                size={24}
+                color={C.textPrimary}
+              />
             </Pressable>
           </View>
+
           <ScrollView keyboardShouldPersistTaps="handled">
-            <View style={{ gap: 14, paddingBottom: 12 }}>{children}</View>
+            <View
+              style={{
+                gap: 14,
+                paddingBottom: 12,
+              }}
+            >
+              {children}
+            </View>
           </ScrollView>
         </View>
       </KeyboardAvoidingView>
     </Modal>
   );
 }
+
 export function Stat({
   label,
   value,
@@ -449,15 +622,21 @@ export function Stat({
 }) {
   return (
     <Pressable
-      accessibilityRole={onPress ? "button" : undefined}
+      accessibilityRole={
+        onPress ? "button" : undefined
+      }
       onPress={onPress}
       style={[s.card, s.stat]}
     >
-      <Text style={[s.title, { fontSize: 29 }]}>{value}</Text>
+      <Text style={[s.title, { fontSize: 29 }]}>
+        {value}
+      </Text>
+
       <Txt muted>{label}</Txt>
     </Pressable>
   );
 }
+
 export function AuthFrame({
   children,
   back = false,
@@ -465,7 +644,9 @@ export function AuthFrame({
   children: React.ReactNode;
   back?: boolean;
 }) {
-  const wide = useWindowDimensions().width >= 850;
+  const { width } = useWindowDimensions();
+  const wide = width >= 1000;
+
   return (
     <SafeAreaView style={s.page}>
       <View
@@ -481,6 +662,7 @@ export function AuthFrame({
           right: -170,
         }}
       />
+
       <View
         pointerEvents="none"
         style={{
@@ -495,53 +677,99 @@ export function AuthFrame({
           left: -130,
         }}
       />
+
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior={
+          Platform.OS === "ios"
+            ? "padding"
+            : Platform.OS === "android"
+              ? "height"
+              : undefined
+        }
       >
         <ScrollView
+          style={{ flex: 1 }}
           contentContainerStyle={{
             flexGrow: 1,
-            justifyContent: "center",
-            padding: 24,
+            paddingHorizontal: width < 400 ? 16 : 24,
+            paddingTop: 24,
+            paddingBottom: 48,
           }}
           keyboardShouldPersistTaps="handled"
+          keyboardDismissMode={
+            Platform.OS === "ios"
+              ? "interactive"
+              : "on-drag"
+          }
+          showsVerticalScrollIndicator
+          alwaysBounceVertical
         >
           <View
             style={{
               flexDirection: wide ? "row" : "column",
               alignItems: "center",
               justifyContent: "center",
+              flexShrink: 0,
               gap: wide ? 60 : 16,
               width: "100%",
               maxWidth: 1080,
               alignSelf: "center",
             }}
           >
-            <View style={{ alignItems: "center", width: wide ? 380 : "100%" }}>
+            <View
+              style={{
+                alignItems: "center",
+                width: wide ? 380 : "100%",
+                flexShrink: 0,
+              }}
+            >
               <Image
                 source={require("@/assets/images/qr-logo.png")}
                 resizeMode="contain"
-                style={{ width: wide ? 340 : 190, height: wide ? 360 : 190 }}
+                style={{
+                  width: wide ? 340 : 190,
+                  height: wide ? 360 : 190,
+                }}
               />
+
               {wide && (
                 <>
-                  <Text style={[s.title, { marginTop: 20 }]}>
+                  <Text
+                    style={[
+                      s.title,
+                      {
+                        marginTop: 20,
+                        textAlign: "center",
+                      },
+                    ]}
+                  >
                     Be present. Stay connected.
                   </Text>
-                  <Txt muted>
+
+                  <Text
+                    style={[
+                      s.muted,
+                      {
+                        textAlign: "center",
+                        marginTop: 6,
+                      },
+                    ]}
+                  >
                     School events and attendance, together in ScanIn.
-                  </Txt>
+                  </Text>
                 </>
               )}
             </View>
+
             <View
               style={[
                 s.card,
                 {
                   width: "100%",
                   maxWidth: 470,
-                  padding: 28,
+                  flexShrink: 0,
+                  padding: width < 400 ? 20 : 28,
                   shadowColor: C.shadow,
                   shadowOpacity: 0.07,
                   shadowRadius: 24,
